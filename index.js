@@ -24,10 +24,9 @@ db.any(sql)
   .then(data => {
     // Convert the data to JSON
     const jsonData = JSON.stringify(data, null, 2);
-    const filePath = path.join(rootDirectory, 'data/output.json');
 
     // Write the JSON data to a file
-    fs.writeFile(filePath, jsonData, err => {
+    fs.writeFile('data/output.json', jsonData, err => {
       if (err) {
         console.error('Error writing JSON file:', err);
       } else {
