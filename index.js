@@ -23,11 +23,8 @@ db.any(sql)
     // Convert the data to JSON
     const jsonData = JSON.stringify(data, null, 2);
 
-    // Determine the file path
-    const filePath = path.join(__dirname, 'output.json');
-
     // Write the JSON data to a file
-    fs.writeFile(filePath, jsonData, err => {
+    fs.writeFile('output.json', jsonData, err => {
       if (err) {
         console.error('Error writing JSON file:', err);
       } else {
@@ -38,4 +35,4 @@ db.any(sql)
   .catch(error => {
     console.error('Error executing SQL query:', error);
   });
-console.log(__dirname);
+  console.log(__dirname);
