@@ -19,14 +19,13 @@ const db = pgp(connectionString);
 const sql = 'SELECT * FROM your_table';
 
 // Execute the query and process the retrieved data
-const rootDirectory = __dirname;
 db.any(sql)
   .then(data => {
     // Convert the data to JSON
     const jsonData = JSON.stringify(data, null, 2);
 
     // Write the JSON data to a file
-    fs.writeFile('data/output.json', jsonData, err => {
+    fs.writeFile('output.json', jsonData, err => {
       if (err) {
         console.error('Error writing JSON file:', err);
       } else {
