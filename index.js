@@ -1,4 +1,5 @@
 const pgp = require('pg-promise')();
+const path = require('path');
 const fs = require('fs');
 
 // Connection parameters
@@ -18,13 +19,15 @@ const db = pgp(connectionString);
 const sql = 'SELECT * FROM your_table';
 
 // Execute the query and process the retrieved data
+const rootDirectory = __dirname;
 db.any(sql)
   .then(data => {
     // Convert the data to JSON
     const jsonData = JSON.stringify(data, null, 2);
+    const filePath = path.join(rootDirectory, 'data/output.json');
 
     // Write the JSON data to a file
-    fs.writeFile('output.json', jsonData, err => {
+    fs.writeFile(filePath, jsonData, err => {
       if (err) {
         console.error('Error writing JSON file:', err);
       } else {
@@ -35,4 +38,3 @@ db.any(sql)
   .catch(error => {
     console.error('Error executing SQL query:', error);
   });
-  console.log(__dirname);
