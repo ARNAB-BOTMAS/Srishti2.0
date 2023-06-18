@@ -36,3 +36,16 @@ db.any(sql)
   .catch(error => {
     console.error('Error executing SQL query:', error);
   });
+
+const jsonServer = require("json-server"); // importing json-server library
+const server = jsonServer.create();
+const router1 = jsonServer.router("db.json");
+const router2 = jsonServer.router("intents.json");
+const middlewares = jsonServer.defaults();
+const port1 = process.env.PORT || 8080; //  chose port from here like 8080, 3001
+
+server.use(middlewares);
+server.use("/data", router1);
+server.use("/intent", router2);
+
+server.listen(port1);
