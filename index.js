@@ -1,6 +1,6 @@
 const pgp = require('pg-promise')();
-const path = require('path');
 const fs = require('fs');
+const open = require('open');
 
 // Connection parameters
 const host = 'dpg-ci7f8lenqql0ldbdt070-a';
@@ -25,25 +25,17 @@ db.any(sql)
     const jsonData = JSON.stringify(data, null, 2);
 
     // Write the JSON data to a file
-    fs.writeFile('db.json', jsonData, err => {
+    fs.writeFile('output.json', jsonData, err => {
       if (err) {
         console.error('Error writing JSON file:', err);
       } else {
         console.log('JSON file generated successfully.');
+
+        // Open the JSON file
+        open('output.json');
       }
     });
   })
   .catch(error => {
     console.error('Error executing SQL query:', error);
   });
-
-const jsonServer = require("json-server"); // importing json-server library
-const server = jsonServer.create();
-const router1 = jsonServer.router("db.json");
-const middlewares = jsonServer.defaults();
-const port1 = process.env.PORT || 8080; //  chose port from here like 8080, 3001
-
-server.use(middlewares);
-server.use("/data", router1);
-
-server.listen(port1);
