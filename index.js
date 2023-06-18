@@ -1,6 +1,6 @@
 const pgp = require('pg-promise')();
+const path = require('path');
 const fs = require('fs');
-const open = require('open');
 
 // Connection parameters
 const host = 'dpg-ci7f8lenqql0ldbdt070-a';
@@ -11,6 +11,7 @@ const password = 'Db6wKof7pq0kXcvTJt27Ko5AMhZoGV8a';
 
 // Create a connection string
 const connectionString = `postgres://${user}:${password}@${host}:${port}/${database}`;
+
 
 // Create a connection instance
 const db = pgp(connectionString);
@@ -25,14 +26,11 @@ db.any(sql)
     const jsonData = JSON.stringify(data, null, 2);
 
     // Write the JSON data to a file
-    fs.writeFile('output.json', jsonData, err => {
+    fs.writeFile('data/output.json', jsonData, err => {
       if (err) {
         console.error('Error writing JSON file:', err);
       } else {
         console.log('JSON file generated successfully.');
-
-        // Open the JSON file
-        open('output.json');
       }
     });
   })
