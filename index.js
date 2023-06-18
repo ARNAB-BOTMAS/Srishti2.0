@@ -25,7 +25,7 @@ db.any(sql)
     const jsonData = JSON.stringify(data, null, 2);
 
     // Write the JSON data to a file
-    fs.writeFile('output.json', jsonData, err => {
+    fs.writeFile('db.json', jsonData, err => {
       if (err) {
         console.error('Error writing JSON file:', err);
       } else {
@@ -40,12 +40,10 @@ db.any(sql)
 const jsonServer = require("json-server"); // importing json-server library
 const server = jsonServer.create();
 const router1 = jsonServer.router("db.json");
-const router2 = jsonServer.router("intents.json");
 const middlewares = jsonServer.defaults();
 const port1 = process.env.PORT || 8080; //  chose port from here like 8080, 3001
 
 server.use(middlewares);
 server.use("/data", router1);
-server.use("/intent", router2);
 
 server.listen(port1);
